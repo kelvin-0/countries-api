@@ -34,7 +34,7 @@ const App = ()=>{
     // console.log(countries)
 
     return (
-        <div className='h-screen bg-very-light-gray font-nunito-sans text-sm'>
+        <div className='bg-very-light-gray font-nunito-sans text-sm'>
             <Header />
             <Main content={countriesElements}/>
         </div>
