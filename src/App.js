@@ -6,8 +6,33 @@ import Country from './component/Country'
 
 const App = ()=>{
     const [countries, setCountries] = useState([])
-    const countriesElements = countries.map(country=>{
-        const {flags: {png : flagsUrl}, name: {official : name}, population, region, capital} = country;
+    const [query, setQuery] = useState("")
+    const [byRegion, setByRegion] = useState("")
+    const handleQuery = (e)=>{
+        setQuery(e.target.value)
+        setByRegion("")
+    }
+    const handleRegion = (e)=>{
+        setByRegion(e.target.value)
+    }
+    let existingRegion = []
+
+    const filteredElements = countries.filter(country=>{
+        if(query === "")return true
+        const common = country.name.common.toLowerCase()
+        const isExist = common.includes(query.trim().toLowerCase())
+        return isExist
+    }).filter(country=>{
+        if(byRegion === "")return true
+        const region = country.region.toLowerCase()
+        const isExist = region.includes(byRegion.trim().toLowerCase())
+        return isExist
+    })
+    const countriesElements = filteredElements.map(country=>{
+        const {flags: {png : flagsUrl}, name: {common : name}, population, region, capital} = country;
+        if(!existingRegion.includes(region)){
+            existingRegion.push(region)
+        }
         return <Country 
                 source={flagsUrl} 
                 name={name} 
@@ -36,7 +61,7 @@ const App = ()=>{
     return (
         <div className='bg-very-light-gray font-nunito-sans text-sm'>
             <Header />
-            <Main content={countriesElements}/>
+            <Main handleRegion={handleRegion} handleQuery={handleQuery} content={countriesElements} existingRegion={existingRegion}/>
         </div>
     )
 }
