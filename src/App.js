@@ -10,29 +10,24 @@ const App = ()=>{
     const [byRegion, setByRegion] = useState("")
     const handleQuery = (e)=>{
         setQuery(e.target.value)
-        setByRegion("")
     }
     const handleRegion = (e)=>{
         setByRegion(e.target.value)
     }
-    let existingRegion = []
 
+    const filterElement = (state, word)=>{
+        if(state === "")return true
+        const pattern = word.toLowerCase()
+        const isExist = pattern.includes(state.trim().toLowerCase())
+        return isExist
+    }
     const filteredElements = countries.filter(country=>{
-        if(query === "")return true
-        const common = country.name.common.toLowerCase()
-        const isExist = common.includes(query.trim().toLowerCase())
-        return isExist
+        return filterElement(query, country.name.common)
     }).filter(country=>{
-        if(byRegion === "")return true
-        const region = country.region.toLowerCase()
-        const isExist = region.includes(byRegion.trim().toLowerCase())
-        return isExist
+        return filterElement(byRegion, country.region)
     })
     const countriesElements = filteredElements.map(country=>{
         const {flags: {png : flagsUrl}, name: {common : name}, population, region, capital} = country;
-        if(!existingRegion.includes(region)){
-            existingRegion.push(region)
-        }
         return <Country 
                 source={flagsUrl} 
                 name={name} 
@@ -61,7 +56,7 @@ const App = ()=>{
     return (
         <div className='bg-very-light-gray font-nunito-sans text-sm'>
             <Header />
-            <Main handleRegion={handleRegion} handleQuery={handleQuery} content={countriesElements} existingRegion={existingRegion}/>
+            <Main handleRegion={handleRegion} handleQuery={handleQuery} content={countriesElements}/>
         </div>
     )
 }
