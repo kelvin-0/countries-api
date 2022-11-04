@@ -41,7 +41,7 @@ const Main = ({countries, isDark})=>{
     return (
         <main className="px-5 pt-32 pb-10 ">
             <Routes>
-                <Route path="/" element={<Home isDark={isDark} query={query} handleRegion={handleRegion} handleQuery={handleQuery} content={filteredElements}/>}/>
+                <Route path="/" element={<Home byRegion={byRegion} isDark={isDark} query={query} handleRegion={handleRegion} handleQuery={handleQuery} content={filteredElements}/>}/>
                 <Route path="/countries/:countryId" element={<Countries isDark={isDark} findSpecificCountry={findSpecificCountry}/>}/>
                 <Route path="*" element={<h1 className={`text-xl font-extrabold ${isDark ? "text-white" : "text-very-dark-blue-text"}`}>404 Not Found</h1>}/>
             </Routes>
