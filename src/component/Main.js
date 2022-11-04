@@ -5,8 +5,7 @@ import Home from '../pages/Home'
 import Countries from '../pages/Countries'
 import filterElement from '../utils/filterElement'
 
-const Main = ({countries})=>{
-    console.log('main')
+const Main = ({countries, isDark})=>{
     const [query, setQuery] = useState("")
     const [byRegion, setByRegion] = useState("")
     const handleQuery = (e)=>{
@@ -19,6 +18,7 @@ const Main = ({countries})=>{
     const countriesElements = countries.map((country, i)=>{
         const {flags: {png : flagsUrl}, name: {common : name}, population, region, capital, id} = country;
         return <Country 
+                isDark={isDark}
                 key={i + 1}
                 id={id}
                 source={flagsUrl} 
@@ -41,9 +41,9 @@ const Main = ({countries})=>{
     return (
         <main className="px-5 pt-32 pb-10 ">
             <Routes>
-                <Route path="/" element={<Home handleRegion={handleRegion} handleQuery={handleQuery} content={filteredElements}/>}/>
-                <Route path="/countries/:countryId" element={<Countries findSpecificCountry={findSpecificCountry}/>}/>
-                <Route path="*" element={<h1>404 Not Found</h1>}/>
+                <Route path="/" element={<Home isDark={isDark} query={query} handleRegion={handleRegion} handleQuery={handleQuery} content={filteredElements}/>}/>
+                <Route path="/countries/:countryId" element={<Countries isDark={isDark} findSpecificCountry={findSpecificCountry}/>}/>
+                <Route path="*" element={<h1 className={`text-xl font-extrabold ${isDark ? "text-white" : "text-very-dark-blue-text"}`}>404 Not Found</h1>}/>
             </Routes>
         </main>
     )

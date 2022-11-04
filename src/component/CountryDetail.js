@@ -1,10 +1,10 @@
 import React from "react"
 
 
-const CountryDetail = ({native, languages, currencies, source, name, population, region, capital, tld, subreg, border})=>{
-    console.log(border)
+const CountryDetail = ({isDark, native, languages, currencies, source, name, population, region, capital, tld, subreg, border})=>{
+    const textColor = isDark ? "text-white" : "text-dark-blue"
     return (
-        <div className='rounded-lg flex flex-col overflow-hidden h-auto sm:flex-row sm:max-h-auto sm:gap-x-10 lg:gap-x-20 sm:justify-between sm:items-center'>
+        <div className={`${textColor} rounded-lg flex flex-col overflow-hidden h-auto sm:flex-row sm:max-h-auto sm:gap-x-10 lg:gap-x-20 sm:justify-between sm:items-center`}>
             <img className="w-full max-w-full h-2/4 object-cover sm:max-w-2xl sm:w-1/2 " src={source} alt="country flag"/>
             <div className="py-6 leading-relaxed sm:w-1/2 sm:max-w-2xl">
                 <h1 className="font-extrabold text-lg sm:text-xl">{name}</h1>

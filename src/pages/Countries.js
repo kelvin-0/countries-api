@@ -3,21 +3,22 @@ import { useParams, useNavigate } from 'react-router-dom'
 import '../component/CountryDetail'
 import CountryDetail from '../component/CountryDetail'
 
-const Countries = ({findSpecificCountry})=>{
+const Countries = ({isDark, findSpecificCountry})=>{
+    const buttonStyle = isDark ? "bg-dark-blue text-very-light-gray" : "bg-white text-very-dark-blue-text"
     const navigate = useNavigate()
     const params = useParams()
     const {countryId} = params
     const specificCountry = findSpecificCountry(countryId);
-    console.log(specificCountry)
     return (
         !specificCountry
             ? <h1>No countries with that id</h1> 
             : (
             <>
-                <button className="shadow-md px-10 py-3 mb-10 font-semibold bg-white" onClick={()=>navigate(-1)}>
-                    Back
+                <button className={`${buttonStyle} shadow-md px-10 py-3 mb-10 font-semibold`} onClick={()=>navigate(-1)}>
+                <i class="fa-solid fa-arrow-left-long"></i> Back
                 </button>
                 <CountryDetail 
+                isDark={isDark}
                 key={specificCountry.id}
                 id={specificCountry.id}
                 source={specificCountry.flags.png} 

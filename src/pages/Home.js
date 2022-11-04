@@ -3,11 +3,11 @@ import Content from '../component/Content'
 import SearchBar from '../component/SearchBar'
 import DropDown from '../component/DropDown'
 
-const Home = ({content, handleQuery, handleRegion})=>{
+const Home = ({isDark, query, content, handleQuery, handleRegion})=>{
     return (
         <>
-        <SearchBar handleQuery={handleQuery}/>
-        <DropDown handleRegion={handleRegion}/>
+        <SearchBar isDark={isDark} query={query} handleQuery={handleQuery}/>
+        <DropDown isDark={isDark} handleRegion={handleRegion}/>
         <Content>
         {content}
         </Content>

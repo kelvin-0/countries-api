@@ -4,16 +4,18 @@ import Header from './component/Header'
 import Main from './component/Main'
 
 const App = ()=>{
-    console.log("app rendered")
     const [countries, setCountries] = useState([])
+    const [isDark, setIsDark] = useState(false)
+    const darkStyle = isDark ? "bg-very-dark-blue" : "bg-very-light-gray"
+    const toggleDark = ()=>{
+        setIsDark(prevState=>!prevState)
+    }
     useEffect(()=>{
         const url = "https://restcountries.com/v3.1/all"
         const fetchData = async()=>{
             try{
                 const response = await fetch(url)
                 const data = await response.json()
-                console.log(data)
-                console.log('fetch')
                 const newDataWithId = data.map((x, i)=>{
                     return {...x, id: i+1}
                 })
@@ -25,9 +27,9 @@ const App = ()=>{
         fetchData()
     }, [])
     return (
-        <div className='bg-very-light-gray font-nunito-sans text-sm'>
-            <Header />
-            <Main countries={countries}/>
+        <div className={`${darkStyle} min-h-screen font-nunito-sans text-sm`}>
+            <Header isDark={isDark} toggleDark={toggleDark}/>
+            <Main isDark={isDark} countries={countries}/>
         </div>
     )
 }
